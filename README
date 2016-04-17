@@ -1,0 +1,9 @@
+Mathematics using the Scala compiler as a proof-checker. 
+
+The Curry Howard isomorphism says that given a programming language with a expressive type system, a correspondence can be defined between propositions with types on the one hand, and proofs and programs on the other. In other words, we can express any mathematical claim as a type whose truth is proven by an instantiation of it. 
+
+This means that a compiler can be used as a proof-checker. If the proof represented by the instantiation was invalid, then compiler should detect that the result does not match the type of the object being instantiated. If you edit this program in an IDE like IntelliJ, the IDE will, simply by examining the program, show red marks under your code if you change a proof so that it is invalid. 
+
+This is my first commit with this idea, so there isn't much here yet. There is a proof of a simple tautology in intuistic logic and a proof that 1 + 1 = 2. This approach could be used to construct the whole of mathematics, however. 
+
+The value of the Curry Howard isomorpism is that it means we can encode formal proofs about a progarm in the code of the program itself. Ultimately I would like to use this idea to make objects that cannot be instantiated unless the programmer provides a proof that they work correctly.  

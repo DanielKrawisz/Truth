@@ -10,6 +10,6 @@ trait Equals[X, Y] {
 
   def reverse() : Equals[Y, X]
 
-  def transformLeft[Z](xz : Equals[X, Z]) : Equals[Z, X]
-  def transformRight[Z](yz : Equals[Y, Z]) : Equals[Y, Z]
+  def transformLeft[Z](xz : Equals[X, Z]) : Equals[Z, Y]
+  def transformRight[Z](yz : Equals[Y, Z]) : Equals[X, Z]
 }

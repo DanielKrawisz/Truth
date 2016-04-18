@@ -15,22 +15,22 @@ trait ℕ {
   def suc[x, y](xy : Equal[x, y]) : Equal[Suc[x], Suc[y]]
   def prev[x, y](xy : Equal[Suc[x], Suc[y]]) : Equal[x, y]
 
-  def plusBase[x]() : Equal[x, Plus[x, Zero]]
+  def plusBase[x]() : Equal[Plus[x, Zero], x]
   def plusInductive[x, y]() : Equal[Suc[Plus[x, y]], Plus[x, Suc[y]]]
 
-  def plus[x, y, z](num : x, dom : Member[x, ℕ], yz : Equal[y, z])
+  def plus[x, y, z](dom : Member[x, ℕ], yz : Equal[y, z])
     : Equal[Plus[y, x], Plus[z, x]]
 
-  def timesBase[x]() : Equal[Zero, Times[Zero, x]]
-  def timesInductive[x, y]() : Equal[Plus[Times[x, y], y], Times[x, Suc[y]]]
+  def timesBase[x]() : Equal[Times[x, Zero], Zero]
+  def timesInductive[x, y]() : Equal[Plus[Times[x, y], y], Times[Suc[x], y]]
 
-  def times[x, y, z](num : x, dom : Member[x, ℕ], yz : Equal[y, z])
+  def times[x, y, z](dom : Member[x, ℕ], yz : Equal[y, z])
     : Equal[Times[y, x], Times[z, x]]
 
-  def powBase[x]() : Equal[Suc[Zero], Pow[x, Zero]]
+  def powBase[x]() : Equal[Pow[x, Zero], Suc[Zero]]
   def powInductive[x, y]() : Equal[Times[Pow[x, y], y], Pow[x, Suc[y]]]
 
-  def pow[x, y, z](num : x, dom : Member[x, ℕ], yz : Equal[y, z])
+  def pow[x, y, z](dom : Member[x, ℕ], yz : Equal[y, z])
     : Equal[Pow[y, x], Pow[z, x]]
 
   def contradiction[x] (cont : Equal[x, Suc[x]]) : Nothing

@@ -8,7 +8,7 @@ import com.thingobjectentity.math.set.Member
 trait Plus[X, Y] {
 
   // Proof that this is a natural number.
-  val isNatural : Member[Plus[X, Y], Naturals]
+  val isNatural : Member[Plus[X, Y], ℕ]
 
   val left : X
   val right : Y

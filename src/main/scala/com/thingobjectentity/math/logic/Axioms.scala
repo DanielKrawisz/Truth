@@ -6,8 +6,8 @@ package com.thingobjectentity.math.logic
   * Created by cosmos on 4/17/16.
   */
 trait Axioms {
-  def reflexive[x]() : Equals[x, x]
+  def reflexive[x]() : Equal[x, x]
 
   def transitive[x, y, z]
-    (xy : Equals[x, y], yz : Equals[y, z]) : Equals[x, z]
+    (xy : Equal[x, y], yz : Equal[y, z]) : Equal[x, z]
 }

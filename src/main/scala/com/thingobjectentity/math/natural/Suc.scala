@@ -8,7 +8,7 @@ import com.thingobjectentity.math.set.Member
 trait Suc[x] {
 
   // Proof that this expression represents a natural number.
-  val isNatural : Member[Suc[x], Naturals]
+  val isNatural : Member[Suc[x], ℕ]
 
   // The previous number.
   val previous : x

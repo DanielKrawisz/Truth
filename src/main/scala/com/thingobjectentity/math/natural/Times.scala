@@ -7,5 +7,5 @@ import com.thingobjectentity.math.set.Member
   */
 trait Times[X, Y] {
 
-  val isNatural : Member[Plus[X, Y], Naturals]
+  val isNatural : Member[Plus[X, Y], ℕ]
 }

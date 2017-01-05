@@ -1,7 +1,7 @@
 package com.thingobjectentity.math.natural.basic
 
 import com.thingobjectentity.math.logic.{Axioms, Equal}
-import com.thingobjectentity.math.natural.{Plus, _}
+import com.thingobjectentity.math.natural.{Plus, Suc, _}
 import com.thingobjectentity.math.set.Member
 
 /**
@@ -123,5 +123,12 @@ class CommutePlus(naturals : ℕ, axioms : Axioms) {
 
   def commuter[x, y](dx : Member[x, ℕ], dy : Member[y, ℕ]) : Equal[Plus[x, y], Plus[y, x]] = {
     prop[x, y]()(dy)(dx)
+  }
+
+  def plus[x, y, z](dx : Member[x, ℕ], dy : Member[y, ℕ], dz : Member[z, ℕ], yz : Equal[y, z]) : Equal[Plus[x, y], Plus[x, z]] = {
+    val cl : Equal[Plus[y, x], Plus[x, y]] = commuter(dy, dx)
+    val cr : Equal[Plus[z, x], Plus[x, z]] = commuter(dz, dx)
+
+    N.plus(dx, yz).transformLeft(cl).transformRight(cr)
   }
 }

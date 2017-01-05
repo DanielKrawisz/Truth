@@ -39,31 +39,6 @@ class CommutePlus(naturals : ℕ, axioms : Axioms) {
     }
   }
 
-  // Next we prove by induction over x that Suc(x) = 1 + x
-  class Lemma2[x](c : Equal[Suc[x], Plus[Suc[Zero], x]]) {
-    val claim : Equal[Suc[x], Plus[Suc[Zero], x]] = c
-  }
-
-  def lemma2[x]() : Member[x, ℕ] => Equal[Suc[x], Plus[Suc[Zero], x]] = {
-
-    val step1 : Equal[Suc[Zero], Plus[Suc[Zero], Zero]] =
-      N.plus(N.zero.isNatural, a.reflexive[Suc[Zero]]()).transformLeft(N.plusBase())
-
-    val baseCase : Lemma2[Zero] = new Lemma2(step1)
-
-    val inductionCase = (l2 : Lemma2[x]) => {
-
-      val step1 : Equal[Suc[Suc[x]], Plus[Suc[Zero], Suc[x]]] =
-        N.suc(l2.claim).transformRight(N.plusInductive())
-
-      new Lemma2[Suc[x]](step1)
-    }
-
-    (mem : Member[x, ℕ]) => {
-      N.induction(baseCase, inductionCase)(mem).claim
-    }
-  }
-
   // Next we prove by induction over y that that Suc(x + y) = Suc(x) + y
   // We have an axiom that says Suc(x + y) = x + Suc(y) but we need to go the other way.
   class Lemma3[x]() {

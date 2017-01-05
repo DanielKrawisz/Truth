@@ -25,7 +25,7 @@ class OnePlusOneIsTwo(naturals : ℕ, axioms : Axioms) {
     val step2 : Equal[Suc[Plus[Suc[Zero], Zero]], Suc[Suc[Zero]]] =
       N.suc(step1.transformLeft(plusZero))
 
-    val one : Suc[Zero] = N.suc(N.zero.isNatural)
+    val one : Suc[Zero] = N.suc(N.zero.isNatural, N.zero)
 
     val step3 : Equal[Plus[Suc[Zero], Suc[Zero]], Plus[Suc[Zero], Suc[Zero]]] =
       N.plus(one.isNatural, step1)

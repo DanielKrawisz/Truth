@@ -1,7 +1,7 @@
 package com.thingobjectentity.math.natural.basic
 
 import com.thingobjectentity.math.logic.{Axioms, Equal}
-import com.thingobjectentity.math.natural.{Plus, Suc, Zero, ℕ}
+import com.thingobjectentity.math.natural.{Plus, _}
 import com.thingobjectentity.math.set.Member
 
 /**
@@ -41,14 +41,14 @@ class CommutePlus(naturals : ℕ, axioms : Axioms) {
 
   // Next we prove by induction over y that that Suc(x + y) = Suc(x) + y
   // We have an axiom that says Suc(x + y) = x + Suc(y) but we need to go the other way.
-  class Lemma3[x]() {
+  class Lemma2[x]() {
 
     class inner[y](c: Member[x, ℕ] => Equal[Suc[Plus[x, y]], Plus[Suc[x], y]]) {
       val claim = c
     }
 
     // Here's the proof.
-    def lemma3[y]():
+    def lemma2[y]():
     Member[y, ℕ] => Member[x, ℕ] => Equal[Suc[Plus[x, y]], Plus[Suc[x], y]] = {
 
       // This is the construction of the base case for the inductive argument.
@@ -56,7 +56,7 @@ class CommutePlus(naturals : ℕ, axioms : Axioms) {
 
         // We need to use lemma 1 twice in the base case.
         val lem1x = lemma1[x]()(xN).reverse()
-        val lem1sx = lemma1[Suc[x]]()(N.suc(xN).isNatural).reverse()
+        val lem1sx = lemma1[Suc[x]]()(N.suc(xN)).reverse()
 
         // This says that s(x + 0) = s(x) + 0
         N.suc(a.reflexive[Plus[Zero, x]]().transformLeft(lem1x))
@@ -104,7 +104,7 @@ class CommutePlus(naturals : ℕ, axioms : Axioms) {
             (xN : Member[x, ℕ]) => {
 
               val lem3 : Equal[Suc[Plus[y, x]], Plus[Suc[y], x]] =
-                new Lemma3[y].lemma3[x]()(xN)(yN)
+                new Lemma2[y].lemma2[x]()(xN)(yN)
 
               N.suc(comm.claim(xN)).transformLeft(N.plusInductive()).transformRight(lem3)
             }
@@ -115,5 +115,13 @@ class CommutePlus(naturals : ℕ, axioms : Axioms) {
         N.induction(baseCase, inductionCase)(yN).claim
       }
     }
+  }
+
+  def prop[x, y]() : Member[y, ℕ] => Member[x, ℕ] => Equal[Plus[x, y], Plus[y, x]] = {
+    new CommutativePlus().commutativePlus()
+  }
+
+  def commuter[x, y](dx : Member[x, ℕ], dy : Member[y, ℕ]) : Equal[Plus[x, y], Plus[y, x]] = {
+    prop[x, y]()(dy)(dx)
   }
 }

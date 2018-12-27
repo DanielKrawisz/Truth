@@ -4,13 +4,14 @@
 namespace truth
 {
 
-    template <typename X>
+    // we can always construct the identity function. 
     struct identity {
+        template <typename X>
         X operator()(X x) const {
-        return x;
+            return x;
+        }
     };
 
 }
 
 #endif
-

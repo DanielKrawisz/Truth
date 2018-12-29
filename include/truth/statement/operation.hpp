@@ -19,23 +19,23 @@ namespace truth {
         template <typename X, typename op> struct add_parentheses {};
         
         template <typename X, typename op>
-        struct reader<add_parentheses<X, op>> {
-            static string read() {
-                return statement::read<X>();
+        struct writer<add_parentheses<X, op>> {
+            static string write() {
+                return statement::write<X>();
             }
         };
             
         template <typename op, typename X>
-        struct reader<operation<op, X>> {
-            static string read() {
-                return operand::read<op>() + statement::read<add_parentheses<X, op>>();
+        struct writer<operation<op, X>> {
+            static string write() {
+                return operand::write<op>() + statement::write<add_parentheses<X, op>>();
             }
         };
             
         template <typename op, typename X, typename Y>
-        struct reader<operation<op, X, Y>> {
+        struct writer<operation<op, X, Y>> {
             static string read() {
-                return statement::read<add_parentheses<X, op>>() + operand::read<op>() + statement::read<add_parentheses<X, op>>();
+                return statement::write<add_parentheses<X, op>>() + operand::write<op>() + statement::write<add_parentheses<X, op>>();
             }
         };
     

@@ -9,13 +9,12 @@ namespace truth {
     namespace logic {
         
         // implies is both a function and a statement.
-        template <typename X, typename Y>
-        struct Implies : public statement::operation<X, operand::Implies, Y> {
-            Y operator()(X x) const = 0;
+        template <typename imp, typename X, typename Y>
+        struct Implies : public function<imp, X, Y> {
+            static const statement::expression<imp> Expression{};
         };
     }
     
 }
 
 #endif
-

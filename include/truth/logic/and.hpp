@@ -5,13 +5,17 @@ namespace truth {
     
     namespace logic {
         
-        template <typename A, typename B>
+        template <typename AND, typename A, typename B>
         struct And {
-            A Left;
-            B Right;
-                
-            And(A a, B b) : Left{a}, Right{b} {}
+            static const AND forward(A a, B b) {
+                return AND{a, b};
+            }
+            
+            static const AND backward(A a, B b) {
+                return AND{b, a};
+            }
         };
+
     }
 }
 

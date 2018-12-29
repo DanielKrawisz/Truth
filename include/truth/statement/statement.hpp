@@ -7,25 +7,30 @@ namespace truth {
     
     namespace statement {
         
-        template <typename statement, typename ...> struct reader;
+        template <typename statement, typename ...> struct writer;
+        
+        // an expression is any type that 
+        template <typename X> struct expression {
+            static writer<X> Writable{};
+        };
         
         template <typename X>
-        struct reader<X&> {
+        struct writer<X&> {
             static string read() {
-                return reader<X>{}::read();
+                return writer<X>{}::write();
             }
         };
         
         template <typename X>
-        struct reader<X*> {
+        struct writer<X*> {
             static string read() {
-                return reader<X>{}::read();
+                return writer<X>{}::write();
             }
         };
         
         template <typename statement>
-        string read() {
-            reader<statement>{}::read();
+        string write() {
+            writer<statement>{}::write();
         }
     
     }

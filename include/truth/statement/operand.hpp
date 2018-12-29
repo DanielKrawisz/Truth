@@ -90,7 +90,7 @@ namespace truth {
         template <> struct associative<Times> {};
         
         template <typename op>
-        inline const string read() {
+        inline const string write() {
             return op::symbol();
         }
         

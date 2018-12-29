@@ -31,7 +31,7 @@ namespace truth {
     namespace statement {
         
         template<>
-        struct reader<impossibility> {
+        struct writer<impossibility> {
             string read() const {
                 return "impossibile"; 
             }

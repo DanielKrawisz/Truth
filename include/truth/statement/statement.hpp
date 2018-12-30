@@ -11,26 +11,26 @@ namespace truth {
         
         // an expression is any type that 
         template <typename X> struct expression {
-            static writer<X> Writable{};
+            const static writer<X> Writable{};
         };
         
         template <typename X>
         struct writer<X&> {
             static string read() {
-                return writer<X>{}::write();
+                return writer<X>::write();
             }
         };
         
         template <typename X>
         struct writer<X*> {
             static string read() {
-                return writer<X>{}::write();
+                return writer<X>::write();
             }
         };
         
         template <typename statement>
         string write() {
-            writer<statement>{}::write();
+            writer<statement>::write();
         }
     
     }

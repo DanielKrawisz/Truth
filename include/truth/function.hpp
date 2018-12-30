@@ -13,14 +13,14 @@ namespace truth
         static const y callable(const f fun, const x arg) noexcept {
             return fun(arg);
         }
-    }
+    };
     
     // functions to contradictions are not required to be noexcept.
-    template<typename f, typename x> struct function<f, x, contradiction> {
-        static const contradiction callable(const f fun, const x arg) {
+    template<typename f, typename x> struct function<f, x, logic::contradiction> {
+        static const logic::contradiction callable(const f fun, const x arg) {
             return fun(arg);
         }
-    }
+    };
     
     // composition is a function. 
     template <typename f, typename g, typename x, typename y>

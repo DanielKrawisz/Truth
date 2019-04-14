@@ -4,6 +4,8 @@
 namespace truth {
     
     template <typename ...> struct Or;
+    
+    template <> struct Or<> {};
         
     template <typename A, typename B>
     Or<A, B> left(A);

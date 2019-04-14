@@ -4,6 +4,8 @@
 namespace truth {
     
     template <typename ...> struct And;
+    
+    template <> struct And<> {};
         
     template <typename A, typename B>
     A left(And<A, B>);

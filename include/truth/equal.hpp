@@ -1,25 +1,33 @@
+// Copyright (c) 2019 Daniel Krawisz
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef TRUTH_EQUAL
 #define TRUTH_EQUAL
 
-#include <truth/not.hpp>
+#include <truth/implies.hpp>
 
 namespace truth {
     
-    template <typename ...> struct Equal;
-    
-    template <typename A> struct Equal<A, A> {};
-        
     template <typename A, typename B>
-    Equal<B, A> reverse(Equal<A, B>);
-    
-    template <typename A, typename B, typename C>
-    Equal<A, C>& trans(Equal<A, B>&, Equal<B, C>&);
-    
-    template <typename ...X> struct Unequal : public Not<Unequal<X...>>{};
+    struct Equal{
+        Implies<A, B> LeftRight;
+        Implies<B, A> RightLeft;
         
-    template <typename A, typename B>
-    Uneual<B, A> reverse(Unequal<A, B>);
+        operator Equal<B, A>(){
+            return {RightLeft, LeftRight};
+        }
+    };
     
+}
+
+namespace meta {
+    template <typename x, typename y, typename a, typename b> 
+    struct replace<::truth::Equal<x, y>, a, b> {
+        using result = ::truth::Equal<
+            typename replace<x, a, b>::result,
+            typename replace<y, a, b>::result>;
+    }; 
 }
 
 #endif 

@@ -1,12 +1,12 @@
-#ifndef TRUTH_TYPES_HPP
-#define TRUTH_TYPES_HPP
+#ifndef TRUTH_TYPES
+#define TRUTH_TYPES
 
 #include <vector>
 #include <memory>
 #include <string>
+#include <meta/serialize.hpp>
 
-namespace truth 
-{
+namespace truth {
     
     template<typename X>
     using vector = const std::vector<X>;
@@ -19,6 +19,14 @@ namespace truth
     using string = const std::string;
     
     using N = unsigned long long int;
+    
+    struct Truth;
+    
+    template <typename T>
+    using write = meta::serialize::write<T, string, Truth>;
+    
+    template <typename T>
+    using read = meta::serialize::write<T, string, Truth>;
 
 }
 

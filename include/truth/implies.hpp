@@ -1,22 +1,26 @@
+// Copyright (c) 2019 Daniel Krawisz
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef TRUTH_IMPLIES
 #define TRUTH_IMPLIES
 
-#include <truth/identity.hpp>
+#include <truth/function.hpp>
+#include <meta/replace.hpp>
 
 namespace truth {
     
-    template <typename A, typename B> struct Implies;
+    template <typename x, typename y> using Implies = function<x, y>&;
     
-    template <typename A> struct Implies<A, A> : identity {};
+}
 
-    template <typename A, typename B>
-    inline B call(Implies<A, B>& fun, A arg) {
-        return fun(arg);
-    }
-    
-    template <typename A, typename B, typename C>
-    Implies<A, C>& trans(Implies<A, B>&, Implies<B, C>&);
-    
+namespace meta {
+    template <typename x, typename y, typename a, typename b> 
+    struct replace<::truth::Implies<x, y>, a, b> {
+        using result = ::truth::Implies<
+            typename replace<x, a, b>::result,
+            typename replace<y, a, b>::result>;
+    }; 
 }
 
 #endif 

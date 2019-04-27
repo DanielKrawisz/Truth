@@ -1,78 +1,49 @@
-#ifndef TRUTH_LOGIC_INTUINISTIC_HPP
-#define TRUTH_LOGIC_INTUINISTIC_HPP
+// Copyright (c) 2019 Daniel Krawisz
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <truth/and.hpp>
-#include <truth/or.hpp>
+#ifndef TRUTH_LOGIC_INTUINISTIC
+#define TRUTH_LOGIC_INTUINISTIC
+
 #include <truth/implies.hpp>
-#include <truth/not.hpp>
-#include <truth/logic/contradiction.hpp>
+#include <truth/contradiction.hpp>
 
 namespace truth {
     
-    template <typename x> struct Not : Implies<x, logic::contradiction> {};
+    template <typename A, typename B> struct And;
     
-    namespace logic {
-        
-        namespace intuitionistic {
+    template <typename A, typename B> struct Or;
+    
+    namespace intuitionistic {
             
-            template <typename x, typename y>
-            using then_1 = Implies<x, Implies<x, y>&>;
-                
-            template <typename x, typename y, typename z>
-            using then_2 = Implies<Implies<x, Implies<y, z>&>&, Implies<Implies<x, y>&, Implies<x, z>&>&>;
-                
-            template <typename x, typename y>
-            using and_1 = Implies<And<x, y>, x>;
-                
-            template <typename x, typename y>
-            using and_2 = Implies<And<x, y>, y>;
-                
-            template <typename x, typename y>
-            using and_3 = Implies<x, Implies<y, And<x, y>>&>;
-                
-            template <typename x, typename y>
-            using or_1 = Implies<x, Or<x, y>&>;
-                
-            template <typename x, typename y>
-            using or_2 = Implies<y, Or<x, y>&>;
-                
-            template <typename x, typename y, typename z>
-            using or_3 = Implies<Implies<x, z>&, Implies<Implies<y, z>&, Implies<Or<x, y>&, z>&>&>;
-                
-            template <typename X> 
-            using impossible = Implies<contradiction, X>;
-        
-        }
+        template <typename x, typename y>
+        extern Implies<x, Implies<y, x>> axiom_then_1;
+            
+        template <typename x, typename y, typename z>
+        extern Implies<Implies<x, Implies<y, z>>, Implies<Implies<x, y>, Implies<x, z>>> axiom_then_2;
+            
+        template <typename x, typename y>
+        extern Implies<And<x, y>, x> axiom_and_1;
+            
+        template <typename x, typename y>
+        extern Implies<And<x, y>, y> axiom_and_2;
+            
+        template <typename x, typename y>
+        extern Implies<x, Implies<y, And<x, y>>> axiom_and_3;
+            
+        template <typename x, typename y>
+        extern Implies<x, Or<x, y>> axiom_or_1;
+            
+        template <typename x, typename y>
+        extern Implies<y, Or<x, y>> axiom_or_2;
+            
+        template <typename x, typename y, typename z>
+        extern Implies<Implies<x, z>, Implies<Implies<y, z>, Implies<Or<x, y>, z>>> axiom_or_3;
+            
+        template <typename X> 
+        extern Implies<Contradiction, X> axiom_alse;
         
     }
-    
-    // assert that all axioms are constructible. 
-    template <typename x, typename y>
-    struct Implies<x, Implies<x, y>&>;
-                
-    template <typename x, typename y, typename z>
-    struct Implies<Implies<x, Implies<y, z>&>&, Implies<Implies<x, y>&, Implies<x, z>&>&>;
-                
-    template <typename x, typename y>
-    struct Implies<And<x, y>, x>;
-                
-    template <typename x, typename y>
-    struct Implies<And<x, y>, y>;
-                
-    template <typename x, typename y>
-    struct Implies<x, Implies<y, And<x, y>>&>;
-                
-    template <typename x, typename y>
-    struct Implies<x, Or<x, y>&>;
-                
-    template <typename x, typename y>
-    struct Implies<y, Or<x, y>&>;
-                
-    template <typename x, typename y, typename z>
-    struct Implies<Implies<x, z>&, Implies<Implies<y, z>&, Implies<Or<x, y>&, z>&>&>;
-                
-    template <typename X> 
-    struct Implies<logic::contradiction, X>;
     
 }
 

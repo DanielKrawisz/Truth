@@ -1,35 +1,38 @@
-#ifndef TRUTH_FUNCTION_HPP
-#define TRUTH_FUNCTION_HPP
+// Copyright (c) 2019 Daniel Krawisz
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <truth/logic/contradiction.hpp>
+#ifndef TRUTH_FUNCTION
+#define TRUTH_FUNCTION
 
-namespace truth 
-{
+#include <truth/contradiction.hpp>
+
+namespace truth {
     
     // function from x to y. 
-    template<typename f, typename x, typename y> struct function {
-        // type f must be callable, and must take an argument of type x
-        // and return an argument of type y. 
-        static const y callable(const f fun, const x arg) noexcept {
-            return fun(arg);
-        }
+    template<typename x, typename y> struct function {
+        virtual y operator()(const x) const noexcept = 0;
     };
     
     // functions to contradictions are not required to be noexcept.
-    template<typename f, typename x> struct function<f, x, logic::contradiction> {
-        static const logic::contradiction callable(const f fun, const x arg) {
-            return fun(arg);
+    template<typename x> struct function<x, Contradiction> {
+        virtual const Contradiction operator()(const x) const = 0;
+    };
+    
+    template <typename x>
+    struct impossible : function<x, Contradiction> {
+        Contradiction operator()(x) {
+            throw impossibility{write<x>{}()};
         }
     };
     
-    // composition is a function. 
-    template <typename f, typename g, typename x, typename y>
-    struct composition {
-        f A;
-        g B;
+    template <typename x, typename y, typename z>
+    struct composition : function<x, z> {
+        function<x, y> const * f;
+        function<y, z> const * g;
         
-        y operator()(x arg) const {
-            return A(B(arg));
+        y operator()(x arg) const noexcept {
+            return f(g(arg));
         }
     };
 

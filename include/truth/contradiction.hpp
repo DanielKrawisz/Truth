@@ -1,13 +1,17 @@
-#ifndef TRUTH_LOGIC_CONTRADICTION_HPP
-#define TRUTH_LOGIC_CONTRADICTION_HPP
+// Copyright (c) 2019 Daniel Krawisz
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+#ifndef TRUTH_LOGIC_CONTRADICTION
+#define TRUTH_LOGIC_CONTRADICTION
 
 #include <exception>
 #include <truth/types.hpp>
 
 namespace truth {
      
-    // type that cannot exist. 
-    struct Contradiction {
+    // a contradiction is type that cannot exist. 
+    struct Contradiction final {
         Contradiction() = delete;
     };
     
@@ -25,16 +29,6 @@ namespace truth {
         
         template <typename T>
         friend struct impossible;
-    };
-    
-    template <typename T>
-    string write();
-    
-    template <typename T>
-    struct Impossible {
-        Contradiction operator()(T) {
-            throw impossibility{write<T>()};
-        }
     };
     
 }

@@ -7,13 +7,12 @@
 
 #include <exception>
 #include <truth/types.hpp>
+#include <data/function.hpp>
 
 namespace truth {
      
     // a contradiction is type that cannot exist. 
-    struct Contradiction final {
-        Contradiction() = delete;
-    };
+    using Contradiction = data::function::unconstructable;
     
     template <typename T> struct impossible;
         

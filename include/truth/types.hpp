@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include <meta/serialize.hpp>
+#include <meta/format.hpp>
 
 namespace truth {
     
@@ -18,15 +18,15 @@ namespace truth {
 
     using string = const std::string;
     
-    using N = unsigned long long int;
+    using uint = unsigned long long int;
     
     struct Truth;
     
     template <typename T>
-    using write = meta::serialize::write<T, string, Truth>;
+    using write = meta::format::write<T, string, Truth>;
     
     template <typename T>
-    using read = meta::serialize::write<T, string, Truth>;
+    using read = meta::format::read<T, string, Truth>;
 
 }
 

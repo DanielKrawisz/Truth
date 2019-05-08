@@ -5,44 +5,49 @@
 #ifndef TRUTH_LOGIC_INTUINISTIC
 #define TRUTH_LOGIC_INTUINISTIC
 
-#include <truth/implies.hpp>
 #include <truth/contradiction.hpp>
 
 namespace truth {
     
-    template <typename A, typename B> struct And;
+    namespace logic {
     
-    template <typename A, typename B> struct Or;
+        template <typename ...> struct And;
     
-    namespace intuitionistic {
-            
-        template <typename x, typename y>
-        extern Implies<x, Implies<y, x>> axiom_then_1;
-            
-        template <typename x, typename y, typename z>
-        extern Implies<Implies<x, Implies<y, z>>, Implies<Implies<x, y>, Implies<x, z>>> axiom_then_2;
-            
-        template <typename x, typename y>
-        extern Implies<And<x, y>, x> axiom_and_1;
-            
-        template <typename x, typename y>
-        extern Implies<And<x, y>, y> axiom_and_2;
-            
-        template <typename x, typename y>
-        extern Implies<x, Implies<y, And<x, y>>> axiom_and_3;
-            
-        template <typename x, typename y>
-        extern Implies<x, Or<x, y>> axiom_or_1;
-            
-        template <typename x, typename y>
-        extern Implies<y, Or<x, y>> axiom_or_2;
-            
-        template <typename x, typename y, typename z>
-        extern Implies<Implies<x, z>, Implies<Implies<y, z>, Implies<Or<x, y>, z>>> axiom_or_3;
-            
-        template <typename X> 
-        extern Implies<Contradiction, X> axiom_alse;
+        template <typename ...> struct Or;
         
+        template <typename, typename ...> struct Implies;
+    
+        namespace intuitionistic {
+                
+            template <typename x, typename y>
+            extern Implies<x, y, x> axiom_then_1;
+                
+            template <typename x, typename y, typename z>
+            extern Implies<Implies<x, y, z>, Implies<x, y>, x, z> axiom_then_2;
+                
+            template <typename x, typename y>
+            extern Implies<And<x, y>, x> axiom_and_1;
+                
+            template <typename x, typename y>
+            extern Implies<And<x, y>, y> axiom_and_2;
+                
+            template <typename x, typename y>
+            extern Implies<x, y, And<x, y>> axiom_and_3;
+                
+            template <typename x, typename y>
+            extern Implies<x, Or<x, y>> axiom_or_1;
+                
+            template <typename x, typename y>
+            extern Implies<y, Or<x, y>> axiom_or_2;
+                
+            template <typename x, typename y, typename z>
+            extern Implies<Implies<x, z>, Implies<y, z>, Or<x, y>, z> axiom_or_3;
+                
+            template <typename X> 
+            extern Implies<Contradiction, X> axiom_false;
+            
+        }
+    
     }
     
 }

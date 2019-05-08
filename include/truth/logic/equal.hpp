@@ -5,26 +5,30 @@
 #ifndef TRUTH_EQUAL
 #define TRUTH_EQUAL
 
-#include <truth/implies.hpp>
+#include <truth/logic/implies.hpp>
 
 namespace truth {
     
-    template <typename A, typename B>
-    struct Equal{
-        Implies<A, B> LeftRight;
-        Implies<B, A> RightLeft;
-        
-        operator Equal<B, A>(){
-            return {RightLeft, LeftRight};
-        }
-    };
+    namespace logic {
+    
+        template <typename A, typename B>
+        struct Equal{
+            Implies<A, B> LeftRight;
+            Implies<B, A> RightLeft;
+            
+            operator Equal<B, A>(){
+                return {RightLeft, LeftRight};
+            }
+        };
+    
+    }
     
 }
 
 namespace meta {
     template <typename x, typename y, typename a, typename b> 
-    struct replace<::truth::Equal<x, y>, a, b> {
-        using result = ::truth::Equal<
+    struct replace<truth::logic::Equal<x, y>, a, b> {
+        using result = truth::logic::Equal<
             typename replace<x, a, b>::result,
             typename replace<y, a, b>::result>;
     }; 

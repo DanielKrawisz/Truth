@@ -1,16 +1,16 @@
-#ifndef TRUTH_IDENTITY_HPP
-#define TRUTH_IDENTITY_HPP
+// Copyright (c) 2019 Daniel Krawisz
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-namespace truth
-{
+#ifndef TRUTH_IDENTITY
+#define TRUTH_IDENTITY
+
+#include <truth/function.hpp>
+
+namespace truth {
 
     // we can always construct the identity function. 
-    struct identity {
-        template <typename X>
-        X operator()(X x) const {
-            return x;
-        }
-    };
+    template <typename X> using identity = data::identity<X>;
 
 }
 

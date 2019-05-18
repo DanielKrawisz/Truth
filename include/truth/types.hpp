@@ -15,8 +15,10 @@ namespace truth {
 
     template<typename X>
     using ptr = const std::shared_ptr<X>;
+    
+    using symbol = char32_t;
 
-    using string = const std::string;
+    using string = const std::u32string;
     
     using uint = unsigned long long int;
     

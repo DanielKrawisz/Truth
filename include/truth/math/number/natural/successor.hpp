@@ -2,15 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef TRUTH_NUMBER_SUC
-#define TRUTH_NUMBER_SUC
+#ifndef TRUTH_NUMBER_SUCESSOR
+#define TRUTH_NUMBER_SUCESSOR
 
-#include <truth/elem.hpp>
-#include <truth/equal.hpp>
-#include <truth/implies.hpp>
-#include <truth/contradiction.hpp>
-#include <truth/for_all.hpp>
-#include <truth/math/zero.hpp>
+#include <truth/function.hpp>
 
 namespace truth {
     
@@ -19,7 +14,16 @@ namespace truth {
         namespace number {
             
             namespace natural {
-                template <typename X> struct Suc;
+                
+                template <typename N> struct successor : data::function::abstract<N, N> {
+                    N operator()(N n) {
+                        return n + 1;
+                    }
+                    
+                    bool operator==(function<N, N> f) const {
+                        return this == &f || dynamic_cast<successor<N>*>(&f) != nullptr;
+                    }
+                };
                 
             }
             

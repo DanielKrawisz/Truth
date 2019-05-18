@@ -1,3 +1,27 @@
-The Curry Howard isomorphism says that given a programming language with a expressive type system, a correspondence can be defined between propositions with types on the one hand, and proofs and programs on the other. In other words, we can express any mathematical claim as a type whose truth is proven by an instantiation of it. 
+The Curry Howard isomorphism says that given a programming language with a expressive type system, a correspondence can be defined between propositions with types on the one hand, and proofs and programs on the other. In other words, we can express any mathematical claim as a type whose truth is proven by its instantiation. 
 
-This means that a compiler can be used as a proof-checker. If the proof represented by the instantiation was invalid, then compiler should detect that the result does not match the type of the object being instantiated. 
+This means that a compiler can be used as a proof-checker. If the proof represented by the instantiation was invalid, then compilation should fail. 
+
+Organization
+ * There is some old experimental stuff I did in Scala a long time ago before I was fully prepared to build this thing for real. 
+ * include/logic/intuitionistic.hpp : intuitionistic logic is a version of logic where propositions are about the existence of a proof rather than about truth. 
+ * include/math/number/natural/peano.hpp : the peano axioms of the natural numbers. 
+ 
+Further plans: 
+ * finiteness
+    * prime numbers
+ * algebraic structures such as groups, rings, and fields. 
+    * cyclic, symmetric, and alternating groups
+    * integers and rationals
+ * cauchy sequences
+    * real numbers and calculus. 
+ * linear algebra
+    * complex numbers
+    * affine spaces
+    * exterior algebra
+      * differentials
+      * spinors
+  * combine linear algebra and groups to get representation theory
+  * combine linear algebra with algebra to get Galois theory
+  * combine linear algebra with calculus to get differential geometry
+  * finally can get to real math when comlplex analysis, differential geometry, and number theory all work together. 
